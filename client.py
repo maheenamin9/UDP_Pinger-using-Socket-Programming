@@ -1,0 +1,20 @@
+import socket
+from time import time, ctime
+
+socketcreat = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+
+
+
+for i in range(9):
+
+    start_time = time()
+    message = "ping" + ctime(start_time)
+    socketcreat.sendto(message.encode(), ("127.0.0.1", 5090))
+
+    data, address = socketcreat.recvfrom(1024)
+    end_time = time()
+    rttime = str(end_time - start_time)
+
+    data = data.decode()
+    print(f"Server: {data}")
+    print("Round trip time: " + rttime)
